@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Employee {
@@ -15,10 +16,12 @@ public class Employee {
 	private String name;
 	private String email;
 	private String password;
+	private long contact;
 	private String role;
 	private double salary;
 
-	List<Task> tasks;
+	@OneToMany
+	private List<Task> tasks;
 
 	public int getId() {
 		return id;
@@ -75,5 +78,15 @@ public class Employee {
 	public void setTasks(List<Task> tasks) {
 		this.tasks = tasks;
 	}
+
+	public long getContact() {
+		return contact;
+	}
+
+	public void setContact(long contact) {
+		this.contact = contact;
+	}
+	
+	
 
 }
