@@ -33,16 +33,19 @@ public class LoginServlet extends HttpServlet
 			if(emp.getRole().equals("Manager"))
 			{
 				RequestDispatcher dispatcher = req.getRequestDispatcher("ManagerAccount.jsp");
+				
+				req.setAttribute("employee", emp);
 				dispatcher.forward(req, resp);
 			}else
 			{
 				RequestDispatcher dispatcher = req.getRequestDispatcher("EmployeeAccount.jsp");
+				req.setAttribute("employee", emp);
 				dispatcher.forward(req, resp);
 			}
 		}else
 		{
 			PrintWriter writer = resp.getWriter();
-			writer.print("Invalid credetial");
+			writer.print("<h1>Invalid credetial</h1>");
 			RequestDispatcher dispatcher = req.getRequestDispatcher("Login.html");
 			dispatcher.include(req, resp);
 		}

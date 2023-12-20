@@ -2,6 +2,7 @@ package com.ty.employeemanagemanesystem.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,8 +20,8 @@ public class CreateTaskServlet extends HttpServlet {
 		String stts = req.getParameter("status");
 		boolean status = false;
 
-		if (stts.equals("created")) {
-
+		if (stts.equals("assigned")) {
+			status = true;
 		}
 
 		// creating the task object
@@ -31,6 +32,12 @@ public class CreateTaskServlet extends HttpServlet {
 
 		TaskDao taskDao = new TaskDao();
 		taskDao.createTask(task);
+		
+		RequestDispatcher dispatcher = req.getRequestDispatcher("Task.jsp");
+		
+		req.setAttribute("task", task);
+		
+		dispatcher.forward(req, resp);
 	}
 
 }

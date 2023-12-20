@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.Query;
 
 import com.ty.employeemanagemanesystem.dto.Employee;
+import com.ty.employeemanagemanesystem.dto.Task;
 
 public class EmployeeDao 
 {
@@ -29,6 +30,31 @@ public class EmployeeDao
 			return emps.get(0);
 		}
 		return null;
+	}
+
+	public Employee findEmployee(int emp_id) {
+		return Helper.getManager().find(Employee.class, emp_id);
+	}
+
+	public void AssignTask(Employee emp, Task task) {
+		List<Task> tasks= emp.getTasks();
+		tasks.add(task);
+		
+		emp.setTasks(tasks);
+		
+		Helper.getTransaction().begin();
+		
+		Helper.getManager().merge(emp);
+		
+		Helper.getTransaction().commit();
+		
+	}
+	
+	public List<Employee> getAllEmployee()
+	{
+		Query query = Helper.getManager().createQuery("SELECT E FROM Employee E");
+		
+		return query.getResultList();
 	}
 
 }
